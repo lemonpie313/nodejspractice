@@ -14,10 +14,10 @@ function login() {
     console.log(req);
 
     fetch("/login", {
-        method: "POST",
+        method: "POST", //Restful API 메소드
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json" //보내려는 콘텐츠 타입 
         },
-        body: JSON.stringify(req) //문자열로 변환
+        body: JSON.stringify(req) //문자열로 변환 후 데이터 전달
     })
 }
