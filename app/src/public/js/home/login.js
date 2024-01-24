@@ -19,5 +19,15 @@ function login() {
         },
         body: JSON.stringify(req), //문자열로 변환 후 데이터 전달
     }).then((res) => res.json()) //응답받은 데이터(받은 아이디 비번) 반환
-    .then((res) => console.log(res)); //res.json() 반환값은 promise. then((res) => console.log(res.json()))의 경우 promise로 반환
-} //따라서 promise 타입은 then으로 접근 가능.
+    .then((res) => {
+        if (res.success) {
+            location.href = "/"; //로그인 성공 시 이동할 경로
+        } else {
+            alert(res.msg); //로그인 실패 시 팝업 메시지 (home.ctrl의 msg)
+        }
+
+    })
+    .catch((err) => { //에러 발생할 경우 에러 처리
+        console.error(new Error("로그인 중 에러 발생")); //new Error 없애기도 함 
+    });
+} 
