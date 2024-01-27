@@ -4,9 +4,9 @@ const id = document.querySelector("#id"), //#id:html에 input id로 부여된 'i
     psword = document.querySelector("#psword"),
     loginBtn = document.querySelector("button");
 
-loginBtn.addEventListener("click", login); //클릭하면 login 함수 실행
+loginBtn.addEventListener("click", login0); //클릭하면 login 함수 실행
 
-function login() {
+function login0() {
     const req = {
         id : id.value,
         psword : psword.value,
@@ -18,7 +18,7 @@ function login() {
             "Content-Type": "application/json" //보내려는 콘텐츠 타입 
         },
         body: JSON.stringify(req), //문자열로 변환 후 데이터 전달
-    }).then((res) => res.json()) //응답받은 데이터(받은 아이디 비번) 반환
+    }).then((res) => res.json()) //응답받은 데이터 반환
     .then((res) => {
         if (res.success) {
             location.href = "/"; //로그인 성공 시 이동할 경로
