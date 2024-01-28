@@ -3,12 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="/css/home/login.css">
     <script src="/js/home/login.js" defer></script>
     <title>Document</title>
 </head>
 <body>
-    <input id = "id" type="text" placeholder="ID"><br>
-    <input id = "psword" type="text" placeholder="password"><br>
-    <button>login</button>
+    <div class="login-page">
+        <div class="form">
+          <!-- <form class="register-form">
+            <input type="text" placeholder="name"/>
+            <input type="password" placeholder="password"/>
+            <input type="text" placeholder="email address"/>
+            <button>create</button>
+            <p class="message">Already registered? <a href="#">Sign In</a></p>
+          </form> 회원가입 폼 -->
+          <form class="login-form">
+            <input id = "id" type="text" placeholder="id"/> <!--id="id" 추가-->
+            <input id = "psword" type="password" placeholder="password"/>
+            <button>login</button> <!--input type="password" => 비번 가려져서 입력됨-->
+            <p class="message">Not registered? <a href="/register">Create an account</a></p>
+          </form>
+        </div>
+      </div>
 </body>
 </html>
+
+<!--Copyright (c) 2024 by Aigars Silkalns (https://codepen.io/colorlib/pen/rxddKy) -->
+
