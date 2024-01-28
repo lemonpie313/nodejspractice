@@ -11,6 +11,9 @@ const output = { //hello, login을 output 객체로 묶음
     login3 : (req, res) => {
         res.render("home/login");
     },
+    register : (req, res) => {
+        res.render("home/register");
+    }
 };
 
 const process = {
