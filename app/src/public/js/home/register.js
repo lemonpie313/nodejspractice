@@ -9,29 +9,36 @@ const id = document.querySelector("#id"),
 registerBtn.addEventListener("click", register0);
 
 function register0() {
+    if (!id.value) {
+        return alert("아이디를 입력해주세요");
+    }
+
+    if (psword.value !== confirmPsword.value) {
+        return alert("비밀번호 불일치");
+    }
+
     const req = {
         id : id.value,
         name : name.value,
         psword : psword.value,
-        confirmPsword : confirmPsword.value,
     };
 
     fetch("/register", {
-        method: "POST", //Restful API 메소드
+        method: "POST",
         headers: {
-            "Content-Type": "application/json" //보내려는 콘텐츠 타입 
+            "Content-Type": "application/json"
         },
-        body: JSON.stringify(req), //문자열로 변환 후 데이터 전달
-    }).then((res) => res.json()) //응답받은 데이터 반환
+        body: JSON.stringify(req),
+    }).then((res) => res.json())
     .then((res) => {
         if (res.success) {
-            location.href = "/login"; //로그인 성공 시 이동할 경로
+            location.href = "/login";
         } else {
-            alert(res.msg); //로그인 실패 시 팝업 메시지 (home.ctrl의 msg)
+            alert(res.msg);
         }
 
     })
-    .catch((err) => { //에러 발생할 경우 에러 처리
-        console.error(new Error("회원가입 중 에러 발생")); //new Error 없애기도 함 
+    .catch((err) => {
+        console.error(new Error("회원가입 중 에러 발생"));
     });
 } 
