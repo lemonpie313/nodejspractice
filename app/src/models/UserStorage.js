@@ -1,14 +1,10 @@
 "use strict";
 
-class UserStorage {
-    static #users = { //#: public -> private, 외부에서 못불러옴
-        id: ["aaa", "bbb", "ccc"],
-        psword: ["1234","5678","9012"],
-        name: ["가","나","다"],
-    }; //아이디 비번
+const fs = require("fs").promises;
 
+class UserStorage {
     static getUsers(...fields) {
-        const users = this.#users;
+        //const users = this.#users;
         const newusers = fields.reduce((newusers, field) =>{
             if (users.hasOwnProperty(field)){
                 newusers[field] = users[field];
@@ -19,23 +15,34 @@ class UserStorage {
     }
 
     static getUserInfo(id) { //id에 해당하는 유저의 정보만 찾음
-        const users = this.#users;
+        return fs.readFile("./src/databases/users.json")
+            .then((data)=>{
+                return this.#getUserInfo(data, id);
+            }) //해당로직(fs.readfile..)가 성공했을때 실행
+            .catch((err) => console.error); //실패했을때 실행
+
+    }
+
+    static #getUserInfo(data, id) {
+        const users = JSON.parse(data); //그냥 data로 적으면 16진수로 표기.
         const idx = users.id.indexOf(id);
         const userkeys = Object.keys(users); // => [id, psword, name]
         const userInfo = userkeys.reduce((newUser, info) => {
             newUser[info] = users[info][idx];
             return newUser;
         }, {})
-        return userInfo;
+        return userInfo; //이렇게하면 콜백함수가 반환되지 fs 메소드가 반환되는게 아님.
     }
 
     static save(userInfo) {
-        const users = this.#users;
+        //const users = this.#users;
         users.id.push(userInfo.id);
         users.name.push(userInfo.name);
         users.psword.push(userInfo.psword);
         return { success : true };
     }
 }
+
+
 
 module.exports = UserStorage;

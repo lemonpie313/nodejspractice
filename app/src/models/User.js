@@ -7,9 +7,9 @@ class User {
         this.body = body; // > new User(req.body) > 받은 id, psword가 여기 User.body로 들어감
     }
 
-    login2() {
+    async login2() {
         const client = this.body;
-        const { id, psword } = UserStorage.getUserInfo(client.id); //해당 유저 id, 비번 받아오기
+        const {id, psword} = await UserStorage.getUserInfo(client.id); //해당 유저 id, 비번 받아오기
 
         if (id){
             if (id === client.id && psword === client.psword){
