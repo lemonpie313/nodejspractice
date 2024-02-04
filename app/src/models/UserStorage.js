@@ -4,7 +4,17 @@ const fs = require("fs").promises;
 
 class UserStorage {
     static getUsers(...fields) {
-        //const users = this.#users;
+        return fs.readFile("./src/databases/users.json")
+        .then((data)=>{
+            return this.#getUsers(data, fields);
+        }) //해당로직(fs.readfile..)가 성공했을때 실행
+        .catch((err) => console.error); //실패했을때 실행
+    }
+
+
+    static #getUsers(data, fields) {
+        //if (isAll) return users;
+        const users = JSON.parse(data);
         const newusers = fields.reduce((newusers, field) =>{
             if (users.hasOwnProperty(field)){
                 newusers[field] = users[field];
@@ -34,11 +44,16 @@ class UserStorage {
         return userInfo; //이렇게하면 콜백함수가 반환되지 fs 메소드가 반환되는게 아님.
     }
 
-    static save(userInfo) {
-        //const users = this.#users;
+    static async save(userInfo) {
+        const users = await this.getUsers("id", "psword", "name");
+        if (users.id.includes(userInfo.id)) {
+            throw "이미 존재하는 아이디입니다.";
+        }
+
         users.id.push(userInfo.id);
-        users.name.push(userInfo.name);
         users.psword.push(userInfo.psword);
+        users.name.push(userInfo.name);
+        fs.writeFile("./src/databases/users.json", JSON.stringify(users));
         return { success : true };
     }
 }

@@ -23,9 +23,9 @@ const process = {
         return res.json(response);
     },
 
-    register1: (req,res) => { // ** req.body : post 형식으로 넘어오는 파라미터 담음
+    register1: async (req,res) => { // ** req.body : post 형식으로 넘어오는 파라미터 담음
         const user = new User(req.body); //req.body(입력된 id비번) > Users.js의 constructor(body)로 넘어감
-        const response = user.register2();
+        const response = await user.register2();
         return res.json(response);
     },
 };
